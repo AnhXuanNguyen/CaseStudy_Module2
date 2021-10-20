@@ -71,7 +71,7 @@ public class SeverComputerView implements Serializable {
         String passWord = line.nextLine();
         controllerSeverComputer.registerNewUser(userName, passWord);
     }
-    public void depositCash(){
+    public void depositCash() throws IOException {
         System.out.println("Nhập username");
         String userName = line.nextLine();
         System.out.println("Nhập số tiền nạp");
@@ -88,7 +88,7 @@ public class SeverComputerView implements Serializable {
         }
         else System.out.println("Tài khoản không tồn tại");
     }
-    public void changePassUser(){
+    public void changePassUser() throws IOException {
         System.out.println("Nhập vào username");
         String userName = line.nextLine();
         System.out.println("Nhập vào mật khẩu mới");
@@ -107,7 +107,7 @@ public class SeverComputerView implements Serializable {
     public void showTotalCash(){
         System.out.println("Tổng doang thu hiện tại: "+controllerSeverComputer.showTotalCash());
     }
-    public void withDrawMoney(){
+    public void withDrawMoney() throws IOException {
         System.out.println("Đã thực rút số tiền "+controllerSeverComputer.widthDrawMoney()+" lúc "+ LocalDateTime.now());
     }
     public void personalPage() throws IOException {
@@ -158,7 +158,7 @@ public class SeverComputerView implements Serializable {
         }
         else System.out.println("Tên tài khoản đã tồn tại");
     }
-    public void changePassword(){
+    public void changePassword() throws IOException {
         System.out.println("Nhập vào tên tài khoản");
         String userName = line.nextLine();
         System.out.println("Nhập vào mật khẩu hiện tại");

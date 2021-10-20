@@ -69,8 +69,10 @@ public class ComputerSeverManager {
     public long toTalCash(){
         return admin.getMoneyInPocket();
     }
-    public long withDrawMoney(){
-        return admin.withDrawMoney();
+    public long withDrawMoney() throws IOException {
+        long cash = admin.withDrawMoney();
+        fileAdmin.writeFile(admin);
+        return cash;
     }
     public String toString(){
         return admin.toString()+" "+severComputer.toString();

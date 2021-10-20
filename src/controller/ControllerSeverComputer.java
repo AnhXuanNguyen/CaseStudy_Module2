@@ -54,16 +54,16 @@ public class ControllerSeverComputer implements Login {
     }
 
     @Override
-    public boolean changePassword(String useName, String passWord, String newPassWord) {
+    public boolean changePassword(String useName, String passWord, String newPassWord) throws IOException {
         if (login(useName, passWord)){
-            computerSeverManager.getAdmin().setPassWord(newPassWord);
+            computerSeverManager.changePassWord(newPassWord);
             return true;
         }
         return false;
     }
-    public boolean changeUserPassword(String useName, String newPassWord){
+    public boolean changeUserPassword(String useName, String newPassWord) throws IOException {
         if (customerManager.isUserName(useName)){
-            customerManager.searchCustomer(useName).setPassWord(newPassWord);
+            customerManager.editPassword(useName,newPassWord);
             return true;
         }
         return false;
@@ -71,19 +71,13 @@ public class ControllerSeverComputer implements Login {
     public List<ClientComputer> getClientComputers(){
         return computerClientManager.getClientComputers();
     }
-    public boolean deposit(String useName ,long cash){
+    public boolean deposit(String useName ,long cash) throws IOException {
         if (!customerManager.isUserName(useName)){
             return false;
         }
-        customerManager.searchCustomer(useName).setDepositMoney(cash);
+        customerManager.deposit(useName,cash);
         computerSeverManager.getAdmin().setMoneyInPocket(cash);
         return true;
-    }
-    public long getTotalCash(){
-        return computerSeverManager.getAdmin().getMoneyInPocket();
-    }
-    public long withDraw(){
-        return computerSeverManager.getAdmin().withDrawMoney();
     }
     public void close(){
         computerSeverManager.getSeverComputer().close();
@@ -121,7 +115,7 @@ public class ControllerSeverComputer implements Login {
     public long showTotalCash(){
         return computerSeverManager.toTalCash();
     }
-    public long widthDrawMoney(){
+    public long widthDrawMoney() throws IOException {
         return computerSeverManager.withDrawMoney();
     }
     public boolean isClientComputer(String code){

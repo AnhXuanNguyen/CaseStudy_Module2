@@ -57,7 +57,7 @@ public class ClientComputerView {
     public void showAccount(String userName){
         System.out.println(controllerSeverComputer.searchAccout(userName));
     }
-    public void changePassWord(String userName){
+    public void changePassWord(String userName) throws IOException {
         System.out.println("Nhập mật khẩu mới");
         String newPassWord = line.nextLine();
         if (controllerSeverComputer.changeUserPassword(userName, newPassWord)){

@@ -59,6 +59,6 @@ public class ClientComputer extends Computer implements ComputerCando, GetTotalT
         super.setStatus(false);
     }
     public String toString(){
-        return (!super.isStatus()?getCode()+": Disnable":customer.toString()+"| "+super.getCode()+" | Thời gian mở máy: "+this.openTime+"| Tổng thời gian chơi: "+this.getUseTime());
+        return (!super.isStatus()?getCode()+": Disnable":customer.toString()+" | Thời gian mở máy: "+this.openTime+"| Tổng thời gian chơi: "+this.getUseTime());
     }
 }
