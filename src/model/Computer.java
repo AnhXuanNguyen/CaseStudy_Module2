@@ -6,6 +6,7 @@ public abstract class Computer implements Serializable {
     private boolean status = false;
     private String code;
 
+    public Computer(){}
     public boolean isStatus() {
         return status;
     }

@@ -2,6 +2,7 @@ package controller;
 
 import model.ClientComputer;
 import model.Customer;
+import model.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,8 +11,16 @@ public class ControllerSeverComputer {
     private ComputerSeverManager computerSeverManager = new ComputerSeverManager();
     private CustomerManager customerManager = new CustomerManager();
     private ComputerClientManager computerClientManager = new ComputerClientManager();
+    private static ControllerSeverComputer controllerSeverComputer;
 
-    public ControllerSeverComputer() throws IOException, ClassNotFoundException {
+
+    private ControllerSeverComputer() throws IOException, ClassNotFoundException {
+    }
+    public static ControllerSeverComputer getInstance() throws IOException, ClassNotFoundException {
+        if (controllerSeverComputer == null){
+            controllerSeverComputer = new ControllerSeverComputer();
+        }
+        return controllerSeverComputer;
     }
     public void open(){
         computerSeverManager.getSeverComputer().open();
@@ -54,6 +63,7 @@ public class ControllerSeverComputer {
     }
     public boolean deposit(String useName ,long cash) throws IOException {
         if (customerManager.deposit(useName, cash)){
+            computerSeverManager.addCash(cash);
             return true;
         }
         computerSeverManager.getAdmin().setMoneyInPocket(cash);
@@ -81,7 +91,7 @@ public class ControllerSeverComputer {
     public String showAllClientComputer(){
         String show = "";
         for (int i = 0; i < getListClientComputer().size(); i++){
-            show += i+"."+getClientComputers().get(i).getCode()+"\n" + getClientComputers().get(i).toString();
+            show += i+"."+getClientComputers().get(i).getCode() + getClientComputers().get(i).toString()+"\n";
         }
         return show;
     }

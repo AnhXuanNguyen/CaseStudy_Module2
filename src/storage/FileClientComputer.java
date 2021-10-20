@@ -13,7 +13,7 @@ public class FileClientComputer {
     }
     public static FileClientComputer getInstance(){
         if (fileClientComputer == null){
-            return new FileClientComputer();
+            fileClientComputer = new FileClientComputer();
         }
         return fileClientComputer;
     }

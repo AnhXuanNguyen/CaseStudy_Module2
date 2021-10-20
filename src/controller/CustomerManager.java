@@ -1,6 +1,4 @@
 package controller;
-
-import model.ClientComputer;
 import model.Customer;
 import storage.FileCustomer;
 
@@ -10,9 +8,8 @@ import java.util.List;
 
 public class CustomerManager {
     private FileCustomer fileCustomer = FileCustomer.getInstance();
-    private List<Customer> customers;
+    private List<Customer> customers = fileCustomer.readFile();
     public CustomerManager() throws IOException, ClassNotFoundException {
-        customers = fileCustomer.readFile();
     }
     public boolean addCustomer(Customer customer) throws IOException {
         if (isCustomer(customer)){

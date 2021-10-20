@@ -11,7 +11,7 @@ public class FileCustomer {
     }
     public static FileCustomer getInstance(){
         if (fileCustomer == null){
-            return new FileCustomer();
+            fileCustomer = new FileCustomer();
         }
         return fileCustomer;
     }

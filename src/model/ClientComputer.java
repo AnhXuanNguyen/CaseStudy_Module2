@@ -8,6 +8,7 @@ public class ClientComputer extends Computer implements ComputerCando, GetTotalT
     private LocalDateTime openTime;
     private Customer customer;
 
+    public ClientComputer(){}
     public ClientComputer(int i) {
         super.setCode("MAY"+i);
     }

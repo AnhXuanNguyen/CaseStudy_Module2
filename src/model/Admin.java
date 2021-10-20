@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Admin extends User implements Serializable {
     private long moneyInPocket = 0;
+    public Admin(){}
     public Admin(String admin, String password){
         super(admin, password);
     }
@@ -20,6 +21,6 @@ public class Admin extends User implements Serializable {
         return a;
     }
     public String toString(){
-        return "Username: "+super.getUserName()+ " | Tiền chảy vào túi: "+moneyInPocket;
+        return "Username: "+super.getUserName()+ " | Tiền: "+moneyInPocket;
     }
 }

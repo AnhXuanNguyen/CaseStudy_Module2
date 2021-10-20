@@ -10,11 +10,9 @@ import java.io.IOException;
 public class ComputerSeverManager {
     private FileSeverComputer fileSeverComputer = FileSeverComputer.getInstance();
     private FileAdmin fileAdmin = FileAdmin.getInstance();
-    private SeverComputer severComputer;
-    private Admin admin;
+    private SeverComputer severComputer = fileSeverComputer.readFile();
+    private Admin admin = fileAdmin.readFile();
     public ComputerSeverManager() throws IOException, ClassNotFoundException {
-        severComputer = fileSeverComputer.readFile();
-        admin = fileAdmin.readFile();
     }
 
     public Admin getAdmin() {
@@ -45,7 +43,7 @@ public class ComputerSeverManager {
     }
 
     public boolean changeUserName(String newUsername) throws IOException {
-        if (admin.getUserName().equals(newUsername)){
+        if (isUserName(newUsername)){
             return false;
         }
         admin.setUserName(newUsername);
@@ -53,7 +51,7 @@ public class ComputerSeverManager {
         return true;
     }
     public boolean changePassWord(String newPassword) throws IOException {
-        if (isPassword(newPassword)){
+        if (!isPassword(newPassword)){
             admin.setPassWord(newPassword);
             fileAdmin.writeFile(admin);
             return true;
@@ -62,9 +60,9 @@ public class ComputerSeverManager {
     }
     public boolean isPassword(String newPassword){
         if (admin.getPassWord().equals(newPassword)){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     public long toTalCash(){
         return admin.getMoneyInPocket();
@@ -75,7 +73,7 @@ public class ComputerSeverManager {
         return cash;
     }
     public String toString(){
-        return admin.toString()+" "+severComputer.toString();
+        return (severComputer.isStatus()?severComputer.getCode() + " " + admin.toString(): severComputer.getCode()+": Disnapble");
     }
     public void close() throws IOException {
         severComputer.close();
@@ -83,7 +81,7 @@ public class ComputerSeverManager {
     }
     public boolean login(String userName, String passWord) throws IOException {
         if (isUserName(userName) && isPassword(passWord)){
-            severComputer.setStatus(true);
+            severComputer.open();
             fileSeverComputer.writeFile(severComputer);
             return true;
         }

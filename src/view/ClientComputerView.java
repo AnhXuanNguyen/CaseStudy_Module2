@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ClientComputerView {
     private Scanner number = new Scanner(System.in);
     private Scanner line = new Scanner(System.in);
-    private ControllerSeverComputer controllerSeverComputer = new ControllerSeverComputer();
+    private ControllerSeverComputer controllerSeverComputer = ControllerSeverComputer.getInstance();
 
     public ClientComputerView() throws IOException, ClassNotFoundException {
     }

@@ -7,9 +7,8 @@ import java.util.List;
 
 public class ComputerClientManager {
     private FileClientComputer fileClientComputer = FileClientComputer.getInstance();
-    private List<ClientComputer> clientComputers;
+    private List<ClientComputer> clientComputers = fileClientComputer.readFile();
     public ComputerClientManager() throws IOException, ClassNotFoundException {
-        clientComputers = fileClientComputer.readFile();
     }
     public boolean addClientComputer(ClientComputer clientComputer) throws IOException {
         if (isClientComputer(clientComputer)){
