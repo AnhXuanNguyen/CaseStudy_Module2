@@ -16,7 +16,7 @@ public class ClientComputerView {
         System.out.println(controllerSeverComputer.showAllClientComputer());
         System.out.println("Nhập lựa chọn");
         int choice = number.nextInt();
-        if (choice < 0 && choice > controllerSeverComputer.getListClientComputer().size()-1){
+        if (choice < 0 || choice > controllerSeverComputer.getListClientComputer().size()-1){
             System.out.println("Không hợp lệ");
         }
         else {

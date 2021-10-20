@@ -91,7 +91,7 @@ public class ControllerSeverComputer {
     public String showAllClientComputer(){
         String show = "";
         for (int i = 0; i < getListClientComputer().size(); i++){
-            show += i+"."+getClientComputers().get(i).getCode() + getClientComputers().get(i).toString()+"\n";
+            show += i+"."+" "+getClientComputers().get(i).toString()+"\n";
         }
         return show;
     }
@@ -124,8 +124,8 @@ public class ControllerSeverComputer {
     }
     public boolean userLogin(int codeComputer, String userName, String passWord) throws IOException {
         if (customerManager.login(userName,passWord)){
-            String codeClientConputer = computerClientManager.getClientComputers().get(codeComputer).getCode();
-            computerClientManager.open(codeClientConputer, customerManager.searchCustomer(userName));
+            String codeClientComputer = computerClientManager.getClientComputers().get(codeComputer).getCode();
+            computerClientManager.open(codeClientComputer, customerManager.searchCustomer(userName));
             return true;
         }
         return false;

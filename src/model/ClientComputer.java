@@ -28,10 +28,13 @@ public class ClientComputer extends Computer implements ComputerCando, GetTotalT
     public void withDrawMoneyFromCustomer(){
         long cash = customer.getDepositMoney() - totalCash();
         customer.setDepositMoney(cash);
-        if (cash <= 0){
-            close();
+        while (true){
+            if (cash <= 0){
+                close();
+                break;
+            }
+//            withDrawMoneyFromCustomer();
         }
-        else withDrawMoneyFromCustomer();
     }
     @Override
     public long totalCash() {
