@@ -17,7 +17,6 @@ public class SeverComputerView implements Serializable {
     }
 
     public void login() throws IOException {
-        controllerSeverComputer.open();
         System.out.println("Hello Admin");
         System.out.println("Nhập tên đăng nhập");
         String userName = line.nextLine();
@@ -26,7 +25,7 @@ public class SeverComputerView implements Serializable {
         homePage(userName, passWord);
     }
     public void homePage(String userName, String passWord) throws IOException {
-        if (controllerSeverComputer.login(userName, passWord)){
+        if (controllerSeverComputer.loginAdmin(userName, passWord)){
             boolean check = true;
             while (check){
                 System.out.println("1.Thêm tài khoản");
@@ -69,7 +68,10 @@ public class SeverComputerView implements Serializable {
         String userName = line.nextLine();
         System.out.println("Nhập password");
         String passWord = line.nextLine();
-        controllerSeverComputer.registerNewUser(userName, passWord);
+        if (controllerSeverComputer.registerNewUser(userName, passWord)){
+            System.out.println("Thêm thành công "+userName);
+        }
+        else System.out.println("username đã tồn tại");
     }
     public void depositCash() throws IOException {
         System.out.println("Nhập username");
@@ -93,7 +95,7 @@ public class SeverComputerView implements Serializable {
         String userName = line.nextLine();
         System.out.println("Nhập vào mật khẩu mới");
         String passWord = line.nextLine();
-        if (controllerSeverComputer.changeUserPassword(userName, passWord)){
+        if (controllerSeverComputer.changePasswordCustomer(userName, passWord)){
             System.out.println("Đổi pass thành công");
         }
         else System.out.println("Đổi pass không thành công");
@@ -127,7 +129,7 @@ public class SeverComputerView implements Serializable {
             }
         }
     }
-    public void addClientComputer(){
+    public void addClientComputer() throws IOException {
         System.out.println("Nhập vào số máy muốn thêm");
         int n = number.nextInt();
         n = n + controllerSeverComputer.getClientComputers().size();
@@ -139,7 +141,7 @@ public class SeverComputerView implements Serializable {
             else System.out.println("Trùng id");
         }
     }
-    public void delClientComputer(){
+    public void delClientComputer() throws IOException {
         System.out.println("Nhập vào id máy");
         String code = line.nextLine();
         if (controllerSeverComputer.delClientComputer(code)){
@@ -152,8 +154,8 @@ public class SeverComputerView implements Serializable {
     }
     public void changeUserName() throws IOException {
         System.out.println("Nhập tên đăng nhập mới");
-        String userName = line.nextLine();
-        if (controllerSeverComputer.changeUserName(userName)){
+        String newUserName = line.nextLine();
+        if (controllerSeverComputer.changeUserName(newUserName)){
             System.out.println("Đổi tên tài khoản thành công");
         }
         else System.out.println("Tên tài khoản đã tồn tại");
@@ -165,7 +167,7 @@ public class SeverComputerView implements Serializable {
         String passWord = line.nextLine();
         System.out.println("Nhập vào mật khẩu mới");
         String newPassWord = line.nextLine();
-        if (controllerSeverComputer.changePassword(userName, passWord, newPassWord)){
+        if (controllerSeverComputer.changePasswordAdmin(userName, passWord, newPassWord)){
             System.out.println("Đổi mật khẩu thành công");
         }
         else System.out.println("Đổi mật khẩu không thành công");

@@ -1,5 +1,6 @@
 package controller;
 
+import model.ClientComputer;
 import model.Customer;
 import storage.FileCustomer;
 
@@ -89,8 +90,26 @@ public class CustomerManager {
             }
         }
     }
-    public void deposit(String userName, long cash) throws IOException {
-        searchCustomer(userName).setDepositMoney(cash);
-        fileCustomer.writeFile(customers);
+    public boolean deposit(String userName, long cash) throws IOException {
+        if (isUserName(userName)){
+            searchCustomer(userName).setDepositMoney(cash);
+            fileCustomer.writeFile(customers);
+            return true;
+        }
+        return false;
+    }
+    public boolean login(String userName, String passWord){
+        if (isUserName(userName) && isPassWord(passWord)){
+            return true;
+        }
+        return false;
+    }
+    public boolean isPassWord(String passWord){
+        for (Customer customer: customers){
+            if (customer.getPassWord().equals(passWord)){
+                return true;
+            }
+        }
+        return false;
     }
 }

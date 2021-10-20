@@ -4,10 +4,9 @@ import model.ClientComputer;
 import model.Customer;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 
-public class ControllerSeverComputer implements Login {
+public class ControllerSeverComputer {
     private ComputerSeverManager computerSeverManager = new ComputerSeverManager();
     private CustomerManager customerManager = new CustomerManager();
     private ComputerClientManager computerClientManager = new ComputerClientManager();
@@ -25,45 +24,27 @@ public class ControllerSeverComputer implements Login {
         customerManager.addCustomer(customer);
         return true;
     }
-    public boolean addClientComputer(ClientComputer clientComputer){
-        if (isClientComputer(clientComputer)){
-            computerClientManager.getClientComputers().add(clientComputer);
+    public boolean addClientComputer(ClientComputer clientComputer) throws IOException {
+        if (computerClientManager.addClientComputer(clientComputer)){
             return true;
         }
         return false;
     }
-    public boolean isClientComputer(ClientComputer clientComputer){
-        for (ClientComputer clientComputer1: computerClientManager.getClientComputers()){
-            if (clientComputer1.getCode().equals(clientComputer.getCode())){
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean login(String userName, String passWord){
-        if (!computerSeverManager.getSeverComputer().isStatus()){
-            return false;
-        }
-        if (computerSeverManager.getAdmin().getUserName().equals(userName)){
-            if (computerSeverManager.getAdmin().getPassWord().equals(passWord)){
-                open();
+    public boolean loginAdmin(String userName, String passWord) throws IOException {
+        if (computerSeverManager.login(userName,passWord)){
                 return true;
             }
-        }
         return false;
     }
-
-    @Override
-    public boolean changePassword(String useName, String passWord, String newPassWord) throws IOException {
-        if (login(useName, passWord)){
+    public boolean changePasswordAdmin(String useName, String passWord, String newPassWord) throws IOException {
+        if (loginAdmin(useName, passWord)){
             computerSeverManager.changePassWord(newPassWord);
             return true;
         }
         return false;
     }
-    public boolean changeUserPassword(String useName, String newPassWord) throws IOException {
-        if (customerManager.isUserName(useName)){
-            customerManager.editPassword(useName,newPassWord);
+    public boolean changePasswordCustomer(String useName, String newPassWord) throws IOException {
+        if (customerManager.editPassword(useName,newPassWord)){
             return true;
         }
         return false;
@@ -72,26 +53,24 @@ public class ControllerSeverComputer implements Login {
         return computerClientManager.getClientComputers();
     }
     public boolean deposit(String useName ,long cash) throws IOException {
-        if (!customerManager.isUserName(useName)){
-            return false;
+        if (customerManager.deposit(useName, cash)){
+            return true;
         }
-        customerManager.deposit(useName,cash);
         computerSeverManager.getAdmin().setMoneyInPocket(cash);
         return true;
     }
-    public void close(){
-        computerSeverManager.getSeverComputer().close();
+    public void close() throws IOException {
+        computerSeverManager.close();
     }
     public boolean delCustomer(String userName) throws IOException {
-        if (customerManager.isUserName(userName)){
-            customerManager.delUser(userName);
+        if (customerManager.delUser(userName)){
             return true;
         }
         return false;
     }
     public String showAllUser(){
         String show = "";
-        for (Customer customer: customerManager.getCustomers()){
+        for (Customer customer: getListCustomer()){
             show += customer.toString();
         }
         return show;
@@ -101,8 +80,8 @@ public class ControllerSeverComputer implements Login {
     }
     public String showAllClientComputer(){
         String show = "";
-        for (int i = 0; i < computerClientManager.getClientComputers().size(); i++){
-            show += i+"."+computerClientManager.getClientComputers().get(i).getCode()+"\n" + computerClientManager.getClientComputers().get(i).toString();
+        for (int i = 0; i < getListClientComputer().size(); i++){
+            show += i+"."+getClientComputers().get(i).getCode()+"\n" + getClientComputers().get(i).toString();
         }
         return show;
     }
@@ -118,28 +97,11 @@ public class ControllerSeverComputer implements Login {
     public long widthDrawMoney() throws IOException {
         return computerSeverManager.withDrawMoney();
     }
-    public boolean isClientComputer(String code){
-        for (ClientComputer clientComputer: computerClientManager.getClientComputers()){
-            if (clientComputer.getCode().equals(code)){
-                return true;
-            }
-        }
-        return false;
-    }
-    public boolean delClientComputer(String code){
-        if (isClientComputer(code)){
-            computerClientManager.getClientComputers().remove(searchClient(code));
+    public boolean delClientComputer(String code) throws IOException {
+        if (computerClientManager.delClientComputer(code)){
             return true;
         }
         return false;
-    }
-    public ClientComputer searchClient(String code){
-        for (ClientComputer clientComputer: computerClientManager.getClientComputers()){
-            if (clientComputer.getCode().equals(code)){
-                return clientComputer;
-            }
-        }
-        return null;
     }
     public String showSeverComputer(){
         return computerSeverManager.toString();
@@ -151,14 +113,10 @@ public class ControllerSeverComputer implements Login {
         return false;
     }
     public boolean userLogin(int codeComputer, String userName, String passWord) throws IOException {
-        for (Customer customer: getListCustomer()){
-            if (customer.getUserName().equals(userName)){
-                if (customer.getPassWord().equals(passWord)){
-                    String clientComputer = computerClientManager.getClientComputers().get(codeComputer).getCode();
-                    computerClientManager.open(clientComputer, customer);
-                    return true;
-                }
-            }
+        if (customerManager.login(userName,passWord)){
+            String codeClientConputer = computerClientManager.getClientComputers().get(codeComputer).getCode();
+            computerClientManager.open(codeClientConputer, customerManager.searchCustomer(userName));
+            return true;
         }
         return false;
     }

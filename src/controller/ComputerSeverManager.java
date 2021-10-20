@@ -77,4 +77,26 @@ public class ComputerSeverManager {
     public String toString(){
         return admin.toString()+" "+severComputer.toString();
     }
+    public void close() throws IOException {
+        severComputer.close();
+        fileSeverComputer.writeFile(severComputer);
+    }
+    public boolean login(String userName, String passWord) throws IOException {
+        if (isUserName(userName) && isPassword(passWord)){
+            severComputer.setStatus(true);
+            fileSeverComputer.writeFile(severComputer);
+            return true;
+        }
+        return false;
+    }
+    public boolean isUserName(String userName){
+        if (admin.getUserName().equals(userName)){
+            return true;
+        }
+        return false;
+    }
+    public void addCash(long cash) throws IOException {
+        admin.setMoneyInPocket(cash);
+        fileAdmin.writeFile(admin);
+    }
 }

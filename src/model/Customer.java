@@ -26,6 +26,6 @@ public class Customer extends User implements Serializable {
         this.depositMoney = depositMoney;
     }
     public String toString(){
-        return "Tên đăng nhập: "+getUserName()+"| Tiền trong tài khoản: "+depositMoney+"| Lần đăng nhập cuối cùng: "+loginDay;
+        return "Tên đăng nhập: "+getUserName()+"| Tiền trong tài khoản: "+depositMoney+"| Lần đăng nhập cuối cùng: "+loginDay +"\t\t";
     }
 }

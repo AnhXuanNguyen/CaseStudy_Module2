@@ -60,7 +60,7 @@ public class ClientComputerView {
     public void changePassWord(String userName) throws IOException {
         System.out.println("Nhập mật khẩu mới");
         String newPassWord = line.nextLine();
-        if (controllerSeverComputer.changeUserPassword(userName, newPassWord)){
+        if (controllerSeverComputer.changePasswordCustomer(userName, newPassWord)){
             System.out.println("Đổi mật khẩu thành công");
         }
         else System.out.println("Đổi mật khẩu không thành công");

@@ -45,7 +45,7 @@ public class ComputerClientManager {
         }
         return false;
     }
-    public ClientComputer getComputer(String code){
+    public ClientComputer searchClient(String code){
         for (ClientComputer clientComputer: clientComputers){
             if (clientComputer.getCode().equals(code)){
                 return clientComputer;
@@ -55,20 +55,36 @@ public class ComputerClientManager {
     }
     public boolean editCode(String code, String newCode) throws IOException {
         if (isCode(code)){
-            getComputer(code).setCode(newCode);
+            searchClient(code).setCode(newCode);
             fileClientComputer.writeFile(clientComputers);
             return true;
         }
         return false;
     }
     public void open(String code,Customer customer) throws IOException {
-        ClientComputer clientComputer = getComputer(code);
+        ClientComputer clientComputer = searchClient(code);
         clientComputer.setCustomer(customer);
         clientComputer.open();
         fileClientComputer.writeFile(clientComputers);
     }
     public void close(String code) throws IOException {
-        getComputer(code).close();
+        searchClient(code).close();
         fileClientComputer.writeFile(clientComputers);
+    }
+    public boolean delClientComputer(String code) throws IOException {
+        if (isCode(code)){
+            clientComputers.remove(searchClientComputer(code));
+            fileClientComputer.writeFile(clientComputers);
+            return true;
+        }
+        return false;
+    }
+    public ClientComputer searchClientComputer(String code){
+        for (ClientComputer clientComputer: clientComputers){
+            if (clientComputer.getCode().equals(code)){
+                return clientComputer;
+            }
+        }
+        return null;
     }
 }
