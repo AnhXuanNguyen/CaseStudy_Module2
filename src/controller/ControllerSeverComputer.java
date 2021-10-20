@@ -2,7 +2,6 @@ package controller;
 
 import model.ClientComputer;
 import model.Customer;
-import model.User;
 
 import java.io.IOException;
 import java.util.List;

@@ -10,9 +10,11 @@ import java.io.IOException;
 public class ComputerSeverManager {
     private FileSeverComputer fileSeverComputer = FileSeverComputer.getInstance();
     private FileAdmin fileAdmin = FileAdmin.getInstance();
-    private SeverComputer severComputer = fileSeverComputer.readFile();
-    private Admin admin = fileAdmin.readFile();
+    private SeverComputer severComputer;
+    private Admin admin;
     public ComputerSeverManager() throws IOException, ClassNotFoundException {
+        severComputer = fileSeverComputer.readFile();
+        admin = fileAdmin.readFile();
     }
 
     public Admin getAdmin() {

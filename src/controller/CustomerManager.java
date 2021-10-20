@@ -8,8 +8,9 @@ import java.util.List;
 
 public class CustomerManager {
     private FileCustomer fileCustomer = FileCustomer.getInstance();
-    private List<Customer> customers = fileCustomer.readFile();
+    private List<Customer> customers;
     public CustomerManager() throws IOException, ClassNotFoundException {
+        customers = fileCustomer.readFile();
     }
     public boolean addCustomer(Customer customer) throws IOException {
         if (isCustomer(customer)){
