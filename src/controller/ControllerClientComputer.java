@@ -62,7 +62,7 @@ public class ControllerClientComputer {
         ClientComputer clientComputer = searchClientComputer(index);
         LocalDateTime endTime = LocalDateTime.now();
         customer.setLastLogin(endTime);
-        int cash = (endTime.getHour() - clientComputer.getOpenTime().getHour())*CASH_ON_TIME - 2000;
+        int cash = (endTime.getHour() - clientComputer.getOpenTime().getHour())*CASH_ON_TIME + 2000;
         cash = customer.getMoney() - cash;
         customer.setMoney(cash);
         clientComputer.close();
