@@ -3,33 +3,39 @@ package view;
 import controller.ControllerClientComputer;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ClientComputerView {
     private ControllerClientComputer controllerClientComputer = new ControllerClientComputer();
 
-    public ClientComputerView() throws IOException, ClassNotFoundException {
+    public ClientComputerView() throws IOException, ClassNotFoundException, InputMismatchException {
     }
 
     public void showAllClientComputer() throws IOException {
-    Scanner number = new Scanner(System.in);
-    Scanner line = new Scanner(System.in);
-        System.out.println(controllerClientComputer.showAllClientComputer());
-        System.out.println("Chọn máy");
-        int choice = number.nextInt();
-        if (controllerClientComputer.searchClientComputer(choice).isStatus()){
-            System.out.println("Nhập username");
-            String userName = line.nextLine();
-            if (userName.equals(controllerClientComputer.searchClientComputer(choice).getCustomer().getUserName())){
-                homePage(choice, userName);
-            }
-            else System.out.println("vui lòng chọn máy khác");
+        if (controllerClientComputer.getClientComputerManager().getClientComputers().size() == 0){
+            System.out.println("Không có máy");
         }
         else {
-            login(choice);
+            Scanner number = new Scanner(System.in);
+            Scanner line = new Scanner(System.in);
+            System.out.println(controllerClientComputer.showAllClientComputer());
+            System.out.println("Chọn máy");
+            int choice = number.nextInt();
+            if (controllerClientComputer.searchClientComputer(choice).isStatus()){
+                System.out.println("Nhập username");
+                String userName = line.nextLine();
+                if (userName.equals(controllerClientComputer.searchClientComputer(choice).getCustomer().getUserName())){
+                    homePage(choice, userName);
+                }
+                else System.out.println("vui lòng chọn máy khác");
+            }
+            else {
+                login(choice);
+            }
         }
     }
-    public void login(int index) throws IOException {
+    public void login(int index) throws IOException , InputMismatchException{
         Scanner number = new Scanner(System.in);
         Scanner line = new Scanner(System.in);
         System.out.println("Nhập username");
@@ -40,7 +46,7 @@ public class ClientComputerView {
             homePage(index, userName);
         }
     }
-    public void homePage(int index, String userName) throws IOException {
+    public void homePage(int index, String userName) throws IOException, InputMismatchException {
         Scanner number = new Scanner(System.in);
         Scanner line = new Scanner(System.in);
         boolean checkLoop = true;
@@ -61,12 +67,12 @@ public class ClientComputerView {
             }
         }
     }
-    public void showClientComputer(int index){
+    public void showClientComputer(int index) throws InputMismatchException{
         Scanner number = new Scanner(System.in);
         Scanner line = new Scanner(System.in);
         System.out.println(controllerClientComputer.showSevic(index));
     }
-    public void changePasswordCustomerAccout(String userName) throws IOException {
+    public void changePasswordCustomerAccout(String userName) throws IOException, InputMismatchException {
         Scanner number = new Scanner(System.in);
         Scanner line = new Scanner(System.in);
         System.out.println("Nhập mật khẩu hiện tại");

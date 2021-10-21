@@ -4,6 +4,7 @@ import controller.ControllerSeverManager;
 import model.ClientComputer;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class SeverComputerView {
@@ -11,7 +12,7 @@ public class SeverComputerView {
     private Scanner number = new Scanner(System.in);
     private Scanner line = new Scanner(System.in);
 
-    public SeverComputerView() throws IOException, ClassNotFoundException {
+    public SeverComputerView() throws IOException, ClassNotFoundException, InputMismatchException {
     }
 
     public void login() throws IOException {
@@ -26,7 +27,7 @@ public class SeverComputerView {
             System.out.println("Sai thông tin đăng nhập");
         }
     }
-    public void homePage() throws IOException {
+    public void homePage() throws IOException , InputMismatchException{
         boolean checkLoop = true;
         while (checkLoop){
             System.out.println("1.Tạo tài khoản mới");
@@ -54,7 +55,7 @@ public class SeverComputerView {
             }
         }
     }
-    public void registerAccountCustomer() throws IOException {
+    public void registerAccountCustomer() throws IOException, InputMismatchException {
         boolean checkLoop = true;
         while (checkLoop){
             System.out.println("Nhập tài khoản mới");
@@ -68,7 +69,7 @@ public class SeverComputerView {
             }
         }
     }
-    public void depositAccountCustomer() throws IOException {
+    public void depositAccountCustomer() throws IOException , InputMismatchException{
         System.out.println("Nhập username khách hàng");
         String userName = line.nextLine();
         System.out.println("Nhập số tiền cần nạp");
@@ -80,7 +81,7 @@ public class SeverComputerView {
             System.out.println("Nạp tiền không thành công");
         }
     }
-    public void changePasswordAccoutCustomer() throws IOException {
+    public void changePasswordAccoutCustomer() throws IOException , InputMismatchException{
         System.out.println("Nhập username");
         String userName = line.nextLine();
         System.out.println("Nhập mật khẩu mới");
@@ -92,7 +93,7 @@ public class SeverComputerView {
             System.out.println("User không tồn tại");
         }
     }
-    public void delAccountCustomer() throws IOException {
+    public void delAccountCustomer() throws IOException, InputMismatchException {
         System.out.println("Nhập tài khoản muốn xóa");
         String userName = line.nextLine();
         if (controllerSeverManager.delAccoutCustomer(userName)){
@@ -102,7 +103,7 @@ public class SeverComputerView {
             System.out.println("Tài khoản không tồn tại");
         }
     }
-    public void showAllAccoutCustomer(){
+    public void showAllAccoutCustomer() throws InputMismatchException{
         if (controllerSeverManager.customerSize() == 0){
             System.out.println("Chưa có khách hàng nào");
         }
@@ -110,7 +111,7 @@ public class SeverComputerView {
             System.out.println(controllerSeverManager.showAllAccoutnCustomer());
         }
     }
-    public void showAllClientComputer(){
+    public void showAllClientComputer() throws InputMismatchException{
         if (controllerSeverManager.customerSize() == 0){
             System.out.println("Quán mới, chưa có tiền mua máy");
         }
@@ -118,7 +119,7 @@ public class SeverComputerView {
             System.out.println(controllerSeverManager.showAllClientComputer());
         }
     }
-    public void peronalPage() throws IOException {
+    public void peronalPage() throws IOException, InputMismatchException {
         boolean checkLoop = true;
         while (checkLoop){
             System.out.println("Hello Admin");
@@ -142,7 +143,7 @@ public class SeverComputerView {
             }
         }
     }
-    public void changeAccoutAdmin() throws IOException {
+    public void changeAccoutAdmin() throws IOException, InputMismatchException {
         System.out.println("Nhập tài khoản mới");
         String userName = line.nextLine();
         if (controllerSeverManager.changeUserNameAccountAdmin(userName)){
@@ -152,7 +153,7 @@ public class SeverComputerView {
             System.out.println("Tài khoản đã tồn tại");
         }
     }
-    public void changePasswordAdmin() throws IOException {
+    public void changePasswordAdmin() throws IOException, InputMismatchException {
         System.out.println("Nhập username");
         String userName = line.nextLine();
         System.out.println("Nhập password");
@@ -166,7 +167,7 @@ public class SeverComputerView {
             System.out.println("Đổi mật khẩu không thành công");
         }
     }
-    public void addClientcomputer() throws IOException {
+    public void addClientcomputer() throws IOException, InputMismatchException {
         System.out.println("Nhập số máy trạm muốn thêm");
         int numberAddClientComputer = number.nextInt();
         numberAddClientComputer += controllerSeverManager.clientComputerSize();
@@ -180,7 +181,7 @@ public class SeverComputerView {
             }
         }
     }
-    public void withDrawMoney() throws IOException {
+    public void withDrawMoney() throws IOException, InputMismatchException {
         controllerSeverManager.withDraw();
         System.out.println(controllerSeverManager.showAdminAndSeverComputer());
     }
