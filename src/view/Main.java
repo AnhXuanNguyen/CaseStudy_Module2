@@ -8,10 +8,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             Scanner scanner = new Scanner(System.in);
-            SeverComputerView severComputerView = null;
-            severComputerView = new SeverComputerView();
-            ClientComputerView clientComputerView = null;
-            clientComputerView = new ClientComputerView();
+            SeverComputerView severComputerView =  new SeverComputerView();
+            ClientComputerView clientComputerView = new ClientComputerView();
             boolean checkLoop = true;
             while (checkLoop){
                 System.out.println("1. Máy chủ");
