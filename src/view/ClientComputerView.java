@@ -66,7 +66,7 @@ public class ClientComputerView {
         }
     }
     public void showClientComputer(int index) throws InputMismatchException{
-        System.out.println(CONTROLLER_CLIENT_COMPUTER.showSevic(index));
+        System.out.println(CONTROLLER_CLIENT_COMPUTER.showInfoClientComputer(index));
     }
     public void changePasswordCustomerAccout(String userName) throws IOException, InputMismatchException {
         System.out.println("Nhập mật khẩu hiện tại");

@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ControllerClientComputer {
-    private FileCustomers fileCustomers = FileCustomers.getInstance();
-    private FileClientComputers fileClientComputers = FileClientComputers.getInstance();
-    private final int CASH_ON_TIME = 5000;
+    private final FileCustomers FILE_CUSCOMERS = FileCustomers.getInstance();
+    private final FileClientComputers FILE_CLIENT_COMPUTER = FileClientComputers.getInstance();
+    private static final int CASH_ON_TIME = 5000;
     private ClientComputerManager clientComputerManager = ClientComputerManager.getInstance();
     private CustomerManager customerManager = CustomerManager.getInstance();
 
@@ -42,8 +42,8 @@ public class ControllerClientComputer {
             clientComputer.setCustomer(customer);
             clientComputer.setOpenTime(openTime);
             clientComputer.open();
-            fileClientComputers.writeFile(clientComputerManager.getClientComputers());
-            fileCustomers.writeFile(customerManager.getCustomers());
+            FILE_CLIENT_COMPUTER.writeFile(clientComputerManager.getClientComputers());
+            FILE_CUSCOMERS.writeFile(customerManager.getCustomers());
             return true;
         }
         return false;
@@ -54,7 +54,7 @@ public class ControllerClientComputer {
     public boolean changePassword(String user, String password, String newPassword) throws IOException {
         return customerManager.changePassword(user, password, newPassword);
     }
-    public String showSevic(int index){
+    public String showInfoClientComputer(int index){
         return clientComputerManager.searchClientComputer(index).toString();
     }
     public void close(int index, String userName) throws IOException {
@@ -66,7 +66,7 @@ public class ControllerClientComputer {
         cash = customer.getMoney() - cash;
         customer.setMoney(cash);
         clientComputer.close();
-        fileClientComputers.writeFile(clientComputerManager.getClientComputers());
-        fileCustomers.writeFile(customerManager.getCustomers());
+        FILE_CLIENT_COMPUTER.writeFile(clientComputerManager.getClientComputers());
+        FILE_CUSCOMERS.writeFile(customerManager.getCustomers());
     }
 }

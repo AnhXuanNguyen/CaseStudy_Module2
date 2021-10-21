@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class CustomerManager {
-    private FileCustomers fileCustomers = FileCustomers.getInstance();
+    private final FileCustomers FILE_CUSTOMER = FileCustomers.getInstance();
     private List<Customer> customers;
     private static CustomerManager customerManager;
     private CustomerManager() throws IOException, ClassNotFoundException {
-        customers = fileCustomers.readFile();
+        customers = FILE_CUSTOMER.readFile();
     }
     public static CustomerManager getInstance() throws IOException, ClassNotFoundException {
         if (customerManager == null){
@@ -26,7 +26,7 @@ public class CustomerManager {
 
     public void setCustomers(List<Customer> customers) throws IOException {
         this.customers = customers;
-        fileCustomers.writeFile(customers);
+        FILE_CUSTOMER.writeFile(customers);
     }
     public boolean isUserName(String userName){
         for (Customer customer: customers){
@@ -63,7 +63,7 @@ public class CustomerManager {
     public boolean changePassword(String userName, String newPassword) throws IOException {
         if (isUserName(userName)){
             searchCutomer(userName).setPassword(newPassword);
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;
@@ -71,7 +71,7 @@ public class CustomerManager {
     public boolean deposit(String userName, long cash) throws IOException {
         if (isUserName(userName)){
             searchCutomer(userName).addMoney(cash);
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;
@@ -84,7 +84,7 @@ public class CustomerManager {
     }
     public boolean login(String userName, String passWord) throws IOException {
         if (searchCutomer(userName).login(userName, passWord)){
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;
@@ -92,7 +92,7 @@ public class CustomerManager {
     public boolean addCustomer(Customer customer) throws IOException {
         if (!isCustomer(customer)){
             customers.add(customer);
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;
@@ -100,7 +100,7 @@ public class CustomerManager {
     public boolean delCustomer(String userName) throws IOException {
         if (isUserName(userName)){
             customers.remove(searchCutomer(userName));
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;
@@ -111,13 +111,13 @@ public class CustomerManager {
         }
         Customer customer = new Customer(user);
         customers.add(customer);
-        fileCustomers.writeFile(customers);
+        FILE_CUSTOMER.writeFile(customers);
         return true;
     }
     public boolean changePassword(String userName, String password, String newPassword) throws IOException {
         if (login(userName,password)){
             searchCutomer(userName).setPassword(newPassword);
-            fileCustomers.writeFile(customers);
+            FILE_CUSTOMER.writeFile(customers);
             return true;
         }
         return false;

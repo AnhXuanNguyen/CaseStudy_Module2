@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.util.List;
 
 public class ClientComputerManager {
-    private FileClientComputers fileClientComputers = FileClientComputers.getInstance();
+    private final FileClientComputers FILE_CLIENT_COMPUTERS = FileClientComputers.getInstance();
     private List<ClientComputer> clientComputers;
 
     private static ClientComputerManager clientComputerManager;
     private ClientComputerManager() throws IOException, ClassNotFoundException {
-        clientComputers = fileClientComputers.readFile();
+        clientComputers = FILE_CLIENT_COMPUTERS.readFile();
     }
     public static ClientComputerManager getInstance() throws IOException, ClassNotFoundException {
         if (clientComputerManager == null){
@@ -24,7 +24,7 @@ public class ClientComputerManager {
 
     public void setClientComputers(List<ClientComputer> clientComputers) throws IOException {
         this.clientComputers = clientComputers;
-        fileClientComputers.writeFile(clientComputers);
+        FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
     }
     public boolean isClientComputer(ClientComputer otherClientComputer){
         for (ClientComputer clientComputer: clientComputers){
@@ -53,7 +53,7 @@ public class ClientComputerManager {
     public boolean addClientComputer(ClientComputer clientComputer) throws IOException {
         if (!isClientComputer(clientComputer)){
             clientComputers.add(clientComputer);
-            fileClientComputers.writeFile(clientComputers);
+            FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
             return true;
         }
         return false;
@@ -61,18 +61,18 @@ public class ClientComputerManager {
     public boolean delClientComputer(String id) throws IOException {
         if (isIdClientComputer(id)){
             clientComputers.remove(searchClientComputer(id));
-            fileClientComputers.writeFile(clientComputers);
+            FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
             return true;
         }
         return false;
     }
     public void open(int index) throws IOException {
         searchClientComputer(index).open();
-        fileClientComputers.writeFile(clientComputers);
+        FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
     }
     public void close(int index) throws IOException {
         searchClientComputer(index).close();
-        fileClientComputers.writeFile(clientComputers);
+        FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
     }
     public ClientComputer searchClientComputer(int index){
         if (index >= 0 && index < clientComputers.size()){
@@ -85,7 +85,7 @@ public class ClientComputerManager {
             return false;
         }
         clientComputers.remove(searchClientComputer(index));
-        fileClientComputers.writeFile(clientComputers);
+        FILE_CLIENT_COMPUTERS.writeFile(clientComputers);
         return true;
     }
     @Override

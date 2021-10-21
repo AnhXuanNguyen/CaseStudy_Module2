@@ -41,22 +41,13 @@ public class ControllerSeverManager {
         this.contactAdminAndSeverComputer = contactAdminAndSeverComputer;
     }
     public boolean adminLogin(String user, String password) throws IOException {
-        if (contactAdminAndSeverComputer.login(user, password)){
-            return true;
-        }
-        return false;
+        return contactAdminAndSeverComputer.login(user, password);
     }
     public boolean registerAccoutCustomer(String userName) throws IOException {
-        if (customerManager.register(userName)){
-            return true;
-        }
-        return false;
+        return customerManager.register(userName);
     }
     public boolean changePasswordAccountCustomer(String user, String newPasswor) throws IOException {
-        if (customerManager.changePassword(user, newPasswor)){
-            return true;
-        }
-        return false;
+        return customerManager.changePassword(user, newPasswor);
     }
     public boolean depositAccoutCustomer(String userName, int cash) throws IOException {
         if (customerManager.deposit(userName, cash)){
@@ -66,28 +57,16 @@ public class ControllerSeverManager {
         return false;
     }
     public boolean createClientComputer(ClientComputer clientComputer) throws IOException {
-        if (clientComputerManager.addClientComputer(clientComputer)){
-            return true;
-        }
-        return false;
+        return clientComputerManager.addClientComputer(clientComputer);
     }
     public boolean changePasswordAccoutAdmin(String userName, String password, String newPassword) throws IOException {
-        if (contactAdminAndSeverComputer.changePassword(userName, password, newPassword)){
-            return true;
-        }
-        return false;
+        return contactAdminAndSeverComputer.changePassword(userName, password, newPassword);
     }
     public boolean changeUserNameAccountAdmin(String newUserName) throws IOException {
-        if (contactAdminAndSeverComputer.changeUserName(newUserName)){
-            return true;
-        }
-        return false;
+        return contactAdminAndSeverComputer.changeUserName(newUserName);
     }
     public boolean delAccoutCustomer(String userName) throws IOException {
-        if (customerManager.delCustomer(userName)){
-            return true;
-        }
-        return false;
+        return customerManager.delCustomer(userName);
     }
     public String showAllAccoutnCustomer(){
         return customerManager.toString();
@@ -108,16 +87,10 @@ public class ControllerSeverManager {
         contactAdminAndSeverComputer.withDraw();
     }
     public boolean delClientComputer(String id) throws IOException {
-        if (clientComputerManager.delClientComputer(id)){
-            return true;
-        }
-        return false;
+        return clientComputerManager.delClientComputer(id);
     }
     public boolean delClientComputer(int index) throws IOException {
-        if (clientComputerManager.delClientComputer(index)){
-            return true;
-        }
-        return false;
+        return clientComputerManager.delClientComputer(index);
     }
     public void logOutAdmin() throws IOException {
         contactAdminAndSeverComputer.logout();

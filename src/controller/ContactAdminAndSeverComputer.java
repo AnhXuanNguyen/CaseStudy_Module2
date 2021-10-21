@@ -9,10 +9,10 @@ import storage.FileSeverComputer;
 import java.io.IOException;
 
 public class ContactAdminAndSeverComputer implements LoginLogout {
-    private FileAdmin fileAdmin = FileAdmin.getInstance();
-    private FileSeverComputer fileSeverComputer = FileSeverComputer.getInstance();
-    private Admin admin = fileAdmin.readFile();
-    private SeverComputer severComputer = fileSeverComputer.readFile();
+    private final FileAdmin FILE_ADMIN = FileAdmin.getInstance();
+    private final FileSeverComputer FILE_SEVER_COMPUTER = FileSeverComputer.getInstance();
+    private Admin admin = FILE_ADMIN.readFile();
+    private SeverComputer severComputer = FILE_SEVER_COMPUTER.readFile();
     private static ContactAdminAndSeverComputer contactAdminAndSeverComputer;
 
     private ContactAdminAndSeverComputer() throws IOException, ClassNotFoundException {
@@ -38,7 +38,7 @@ public class ContactAdminAndSeverComputer implements LoginLogout {
     public boolean changePassword(String userName, String password, String newPassword) throws IOException {
         if (admin.login(userName, password)){
             admin.setPassword(newPassword);
-            fileAdmin.writeFile(admin);
+            FILE_ADMIN.writeFile(admin);
             return true;
         }
         return false;
@@ -48,19 +48,19 @@ public class ContactAdminAndSeverComputer implements LoginLogout {
             return false;
         }
         admin.setUserName(newUserName);
-        fileAdmin.writeFile(admin);
+        FILE_ADMIN.writeFile(admin);
         return true;
     }
     public void addMoney(int cash) throws IOException {
         admin.addMoney(cash);
-        fileAdmin.writeFile(admin);
+        FILE_ADMIN.writeFile(admin);
     }
     public void setSeverComputer(SeverComputer severComputer) {
         this.severComputer = severComputer;
     }
     public void withDraw() throws IOException {
         admin.setMoney();
-        fileAdmin.writeFile(admin);
+        FILE_ADMIN.writeFile(admin);
     }
     public boolean isSeverComputer(){
         return severComputer.isStatus();
@@ -69,8 +69,8 @@ public class ContactAdminAndSeverComputer implements LoginLogout {
     public boolean login(String user, String password) throws IOException {
         if (admin.login(user,password)){
             severComputer.open();
-            fileSeverComputer.writeFile(severComputer);
-            fileAdmin.writeFile(admin);
+            FILE_SEVER_COMPUTER.writeFile(severComputer);
+            FILE_ADMIN.writeFile(admin);
             return true;
         }
         return false;
@@ -79,9 +79,9 @@ public class ContactAdminAndSeverComputer implements LoginLogout {
     @Override
     public void logout() throws IOException {
         admin.logout();
-        fileAdmin.writeFile(admin);
+        FILE_ADMIN.writeFile(admin);
         severComputer.close();
-        fileSeverComputer.writeFile(severComputer);
+        FILE_SEVER_COMPUTER.writeFile(severComputer);
     }
 
     @Override
