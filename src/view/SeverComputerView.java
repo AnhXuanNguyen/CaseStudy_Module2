@@ -136,7 +136,7 @@ public class SeverComputerView implements Serializable {
         for (int i = controllerSeverComputer.getClientComputers().size(); i < n; i++){
             ClientComputer clientComputer = new ClientComputer(i);
             if (controllerSeverComputer.addClientComputer(clientComputer)){
-                System.out.println("Thêm thành công máy "+clientComputer.getCode());
+                System.out.println("Thêm thành công máy "+clientComputer.getId());
             }
             else System.out.println("Trùng id");
         }

@@ -66,7 +66,7 @@ public class ClientComputerView {
         else System.out.println("Đổi mật khẩu không thành công");
     }
     public void close(int idClient) throws IOException {
-        String code = controllerSeverComputer.getClientComputers().get(idClient).getCode();
+        String code = controllerSeverComputer.getClientComputers().get(idClient).getId();
         controllerSeverComputer.closeClientComputer(code);
     }
 }

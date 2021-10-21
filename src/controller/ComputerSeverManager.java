@@ -27,10 +27,10 @@ public class ComputerSeverManager {
     }
 
     public boolean changeCode(String newCode) throws IOException {
-        if (severComputer.getCode().equals(newCode)){
+        if (severComputer.getId().equals(newCode)){
             return false;
         }
-        severComputer.setCode(newCode);
+        severComputer.setId(newCode);
         fileSeverComputer.writeFile(severComputer);
         return true;
     }
@@ -75,7 +75,7 @@ public class ComputerSeverManager {
         return cash;
     }
     public String toString(){
-        return (severComputer.isStatus()?severComputer.getCode() + " " + admin.toString(): severComputer.getCode()+": Disnapble");
+        return (severComputer.isStatus()?severComputer.getId() + " " + admin.toString(): severComputer.getId()+": Disnapble");
     }
     public void close() throws IOException {
         severComputer.close();

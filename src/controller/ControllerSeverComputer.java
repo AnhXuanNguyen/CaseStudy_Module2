@@ -123,7 +123,7 @@ public class ControllerSeverComputer {
     }
     public boolean userLogin(int codeComputer, String userName, String passWord) throws IOException {
         if (customerManager.login(userName,passWord)){
-            String codeClientComputer = computerClientManager.getClientComputers().get(codeComputer).getCode();
+            String codeClientComputer = computerClientManager.getClientComputers().get(codeComputer).getId();
             computerClientManager.open(codeClientComputer, customerManager.searchCustomer(userName));
             return true;
         }

@@ -2,12 +2,23 @@ package model;
 
 public abstract class User {
     private String userName;
-    private String passWord;
+    private String passWord = 1;
+    private long money;
 
     public User(){}
-    public User(String userName, String passWord) {
+    public User(String userName) {
         this.userName = userName;
-        this.passWord = passWord;
+    }
+
+    public long getMoney() {
+        return money;
+    }
+
+    public void setMoney(long money) {
+        this.money = money;
+    }
+    public void deposit(long money){
+        this.money += money;
     }
 
     public String getUserName() {

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class Computer implements Serializable {
     private boolean status = false;
-    private String code;
+    private String id;
 
     public Computer(){}
     public boolean isStatus() {
@@ -15,11 +15,17 @@ public abstract class Computer implements Serializable {
         this.status = status;
     }
 
-    public String getCode() {
-        return code;
+    public String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void turnOn(){
+        this.status = true;
+    }
+    public void turnOff(){
+        this.status = false;
     }
 }
