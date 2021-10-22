@@ -56,17 +56,21 @@ public class SeverComputerView {
         }
     }
     public void registerAccountCustomer() throws IOException, InputMismatchException {
+        AccountExample accountExample = new AccountExample();
         boolean checkLoop = true;
         while (checkLoop){
             System.out.println("Nhập tài khoản mới");
             String userName = LINE.nextLine();
-            if (CONTROLLER_SEVER_MANAGER.registerAccoutCustomer(userName)){
-                System.out.println("Tạo tài khoản thành công");
-                checkLoop = false;
+            if (accountExample.validate(userName)){
+                if (CONTROLLER_SEVER_MANAGER.registerAccoutCustomer(userName)){
+                    System.out.println("Tạo tài khoản thành công");
+                    checkLoop = false;
+                }
+                else {
+                    System.out.println("Tài khoản đã tồn tại");
+                }
             }
-            else {
-                System.out.println("Tài khoản đã tồn tại");
-            }
+            else System.out.println("Tên tài khoản không chứa ký tự đặc biệt");
         }
     }
     public void depositAccountCustomer() throws IOException , InputMismatchException{
